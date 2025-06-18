@@ -935,6 +935,26 @@ function mousePressed() {
       win_music.play();
       reset();
     }
+  }else if (currentState === "end_next")
+  {
+     if (
+      mouseX > Yesx &&
+      mouseX < Yesx + Yesw &&
+      mouseY > Yesy &&
+      mouseY < Yesy + Yesh
+    ) {
+       end_next_aud.stop();
+       lastAud2.play();
+      currentState = "app";
+    }else if (
+      mouseX > Nox &&
+      mouseX < Nox + Now &&
+      mouseY > Noy &&
+      mouseY < Noy + Noh
+    ) {
+      currentState = "plus";
+      end_next_aud.stop();
+    }
   }else if (currentState === "aed")
   {
      if (
