@@ -682,6 +682,7 @@ function mousePressed() {
       mouseY > winnoy &&
       mouseY < winnoy + winnoh){
       cpr_notsafe_aud.stop();
+      lastaud3.play();
       currentState = "plus";
       
     }
