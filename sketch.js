@@ -17,6 +17,8 @@ let breathingSeeTime = 0;
 let respondtime = 0;
 let cpr1,cpr2,cprA,cprD,cprR,cprR1,cprS1,cprS2,cprS3,cprS4,cprUNB,cprBcheck,cprC; 
 let cprC1,cprC2,cprC3,cprC4;
+let cpr1t =0;
+let cpt1tpass = 0;
 let cprC1_aud,cprC2_aud,cprC3_aud,cprC4_aud;
 let cprR_aud,cprR_aud1;
 let cprCall_aud,cprAed_aud;
@@ -28,7 +30,7 @@ let cprB_yes;
 let cprBt_check,cprBt_check_aud;
 let cprB_yes_aud;
 let cprBnormal_yes;
-let lastAud1,lastAud2;
+let lastAud1,lastAud2,lastaud3;
 let cpr_notsafe_aud;
 let D_yes;
 let win2,app,plus;
@@ -135,6 +137,16 @@ let No1x = 37;
 let No1y = 578;
 let No1w = 169;
 let No1h = 47;
+// win2 yes
+let winyesx = 47;
+let winyesy = 521;
+let winyesw = 135;
+let winyesh = 47;
+// win2 no
+let winnox = 231;
+let winnoy = 521;
+let winnow = 90;
+let winnoh = 47;
 // appstore
 let playstorex= 205;
 let playstorey = 577;
@@ -155,6 +167,11 @@ let donex = 125;
 let doney = 593;
 let donew = 142;
 let doneh = 47;
+// replay game
+let replayx = 25;
+let replayy = 47;
+let replayw = 55;
+let replayh = 56;
 // restart
 let restartx = 308; // X for start button clickable area (if specific region needed)
 let restarty = 21; // Y for start button clickable area
@@ -176,10 +193,10 @@ function preload() {
   aud2 = loadSound("ElevenLabs_2025-06-15T03_04_45_Alice_pre_sp100_s50_sb75_v3.mp3");
   D_yes_aud = loadSound("ElevenLabs_2025-06-15T05_45_53_Alice_pre_sp100_s50_sb75_v3.mp3");
   okayVoice = loadSound("ElevenLabs_2025-06-14T14_13_46_Alice_pre_sp100_s50_sb75_v3.mp3");
-  cprC1_aud = loadSound("ElevenLabs_2025-06-15T23_48_52_Alice_pre_sp100_s50_sb75_v3.mp3");
-  cprC2_aud = loadSound("ElevenLabs_2025-06-16T00_02_41_Alice_pre_sp100_s50_sb75_v3.mp3");
+  cprC1_aud = loadSound("ElevenLabs_2025-06-28T05_17_33_Alice_pre_sp100_s50_sb75_v3.mp3");
+  cprC2_aud = loadSound("ElevenLabs_2025-06-25T03_15_33_Alice_pre_sp100_s50_sb75_v3.mp3");
   cprC3_aud = loadSound("ElevenLabs_2025-06-16T00_04_57_Alice_pre_sp100_s50_sb75_v3.mp3");
-  cprC4_aud = loadSound("ElevenLabs_2025-06-16T00_05_56_Alice_pre_sp100_s50_sb75_v3.mp3");
+  cprC4_aud = loadSound("ElevenLabs_2025-06-25T03_12_37_Alice_pre_sp100_s50_sb75_v3.mp3");
   press_music = loadSound(
     "mixkit-message-pop-alert-2354.mp3"
   );
@@ -203,17 +220,17 @@ function preload() {
     "cpr1.png"
   );
   cpr2 = loadImage(
-    "cpr2 (1).png"
+    "giffycanvas (97).gif"
   );
   cprA = loadImage(
-    "cprA (1).png"
+    "cprA (2).png"
   );
   cprAed_aud = loadSound("ElevenLabs_2025-06-16T00_41_39_Alice_pre_sp100_s50_sb75_v3.mp3");
   
   cprD = loadImage(
     "cprD.png"
   );
-  CPR_not_safe = loadImage("danger yes_cant_safe (1).png");
+  CPR_not_safe = loadImage("Dcan't safe (1).png");
   cpr_notsafe_aud = loadSound("ElevenLabs_2025-06-16T04_03_14_Alice_pre_sp100_s50_sb75_v3.mp3");
   cprR = loadImage(
     "cprR.png"
@@ -241,10 +258,10 @@ function preload() {
   cprBt_check = loadImage("check type of breathing observed.png");
   cprBnormal_yes = loadImage("yes breathing.png");
   cprC = loadImage("Start cpr (1).png");
-  cprC1 = loadImage("giffycanvas (91).gif");
-  cprC2 = loadImage("interlock.png");
-  cprC3 = loadImage("straight elbows.png");
-  cprC4 = loadImage("giffycanvas (92).gif");
+  cprC1 = loadImage("giffycanvas (98).gif");
+  cprC2 = loadImage("interlock (2).png");
+  cprC3 = loadImage("straight elbows (2).png");
+  cprC4 = loadImage("giffycanvas (99).gif");
  /*s6 = loadImage(
     "giffycanvas (83).gif"
   );
@@ -258,15 +275,16 @@ function preload() {
   meterimg = loadImage("bpm meter86.png");
   heartimg = loadImage("heart.png");
   aedImg = loadImage("giffycanvas (89).gif");
-  win2 = loadImage("win2 (1).png") ;
-  app = loadImage("yes i want to be real life hero (1).png");
-  plus = loadImage("No i don't want to be real life hero.png");
+  win2 = loadImage("win2 (3).png") ;
+  app = loadImage("yes i want to be real life hero (2).png");
+  plus = loadImage("No i don't want to be real life hero (2).png");
  dial = loadSound("9aud.mp3");
  ring = loadSound("mixkit-office-telephone-ring-1350.wav");
  lastAud1 = loadSound("ElevenLabs_2025-06-16T02_51_39_Alice_pre_sp100_s50_sb75_v3.mp3");
  lastAud2 = loadSound("ElevenLabs_2025-06-16T02_58_16_Alice_pre_sp100_s50_sb75_v3.mp3");
+  lastaud3 = loadSound("ElevenLabs_2025-06-28T12_46_03_Alice_pre_sp100_s50_sb75_v3.mp3");
 cprB_yes_aud = loadSound("ElevenLabs_2025-06-16T06_00_58_Alice_pre_sp100_s50_sb75_v3.mp3");
-  end_next = loadImage("delay (1).png");
+  end_next = loadImage("delaywin (1).png");
   end_next_aud = loadSound("ElevenLabs_2025-06-16T08_00_15_Alice_pre_sp100_s50_sb75_v3.mp3");
   amb_aud = loadSound("ambulance-312230.mp3");
   cprAed_found_aud = loadSound("ElevenLabs_2025-06-16T12_58_21_Alice_pre_sp100_s50_sb75_v3.mp3");
@@ -285,7 +303,7 @@ function setup() {
   const staticRectWidth = 254;
   const staticRectHeight = 11;
   const staticRectRadius = 11; // Assuming rounded corners for both
-   mic = new p5.AudioIn();
+  mic = new p5.AudioIn();
   mic.start();
   
 }
@@ -326,6 +344,7 @@ function draw() {
       if(responseState === 1){
         currentState = "wake1";
         cprR_aud.stop();
+        
       }
     if(respondTime>10000){
       
@@ -359,25 +378,57 @@ function draw() {
     //text("breathno :"+breath_no,100,100);
     
     if(breathingSeeTime >=10000){
-     currentState = "cprBcheck"
+     currentState = "cprBcheck";
+      cprAed_aud.stop();
       cprB_aud2.play();
+    
     }
   } else if (currentState === "cprBcheck") {
     image(cprBcheck, 0, 0);
   }else if (currentState === "cprB_yes") {
     image(cprB_yes, 0, 0);
+    
   }else if (currentState === "cprBnormal_yes") {
     image(cprBnormal_yes, 0, 0);
   }  else if (currentState === "cprC1") {
     image(cprC1, 0, 0);
+   cpt1tpass = millis()-cpr1t;
+    if(cpt1tpass > 6000){
+      currentState = "cprC2";
+      cprC2_aud.play();
+} 
+  
   }else if (currentState === "cprC2") {
     image(cprC2, 0, 0);
+    cpt1tpass = millis()-cpr1t;
+  
+    if(cpt1tpass > 14000){
+      currentState = "cprC3";
+      cprC3_aud.play();
+    }
+    
+    
   }else if (currentState === "cprC3") {
     image(cprC3, 0, 0);
+    cpt1tpass = millis()-cpr1t;
+    
+    if(cpt1tpass > 20000){
+      currentState = "cprC4";
+      cprC4_aud.play();
+    }
+    
   }else if (currentState === "cprC4") {
     image(cprC4, 0, 0);
+    cpt1tpass = millis()-cpr1t;
+    
+    if(cpt1tpass > 30000){
+      currentState = "cprC";
+      beginC_aud.play();
+    }
+    
   }else if (currentState === "cprC") {
     image(cprC, 0, 0);
+  
   }else if (currentState === "play") {
     playScreen();
   } else if (currentState === "win") {
@@ -600,6 +651,7 @@ function mousePressed() {
       mouseY < Yesy + Yesh
     ) {
       currentState = "cprR";
+      D_yes_aud.stop();
       cprR_aud.play();
       micStartTime = millis();
     }else if(
@@ -608,23 +660,28 @@ function mousePressed() {
       mouseY > Noy &&
       mouseY < Noy + Noh){
       currentState = "cpr_notsafe";
+      D_yes_aud.stop();
       cpr_notsafe_aud.play();
       //D_yes_aud.play();
     }
   }else if (currentState === "cpr_notsafe") {
+    
     if (
-      mouseX > Yesx &&
-      mouseX < Yesx + Yesw &&
-      mouseY > Yesy &&
-      mouseY < Yesy + Yesh
+      mouseX > winyesx &&
+      mouseX < winyesx + winyesw &&
+      mouseY > winyesy &&
+      mouseY < winyesy + winyesh
     ) {
+      cpr_notsafe_aud.stop();
+      lastAud2.play();
       currentState = "app";
       
     }else if(
-      mouseX > Nox &&
-      mouseX < Nox + Now &&
-      mouseY > Noy &&
-      mouseY < Noy + Noh){
+      mouseX > winnox &&
+      mouseX < winnox + winnow &&
+      mouseY > winnoy &&
+      mouseY < winnoy + winnoh){
+      cpr_notsafe_aud.stop();
       currentState = "plus";
       
     }
@@ -648,6 +705,7 @@ function mousePressed() {
       mouseY < wakenexty + wakenexth
     ) {
       currentState = "wake1_next";
+      // aud stop
       wake1_next_aud.play();
     }
   }else if (currentState === "wake1_next") {
@@ -665,6 +723,8 @@ function mousePressed() {
       mouseY < Noy + Noh
     ) {
       currentState = "win2";
+      wake1_next_aud.stop();
+      okayVoice.stop();
       lastAud1.play();
     }
   }else if (currentState === "cprR1") {
@@ -735,6 +795,7 @@ function mousePressed() {
       mouseY < doney + doneh
     ) {
       currentState = "cprB";
+      cprAed_aud.stop();
       cprB_aud1.play();
       if(breath_no % 3 === 0){
       normal_breath.play();
@@ -763,6 +824,7 @@ function mousePressed() {
       mouseY < Noy + Noh
     ) {
       currentState = "cprC1";
+      cpr1t = millis();
       cprC1_aud.play();
     }
   }else if (currentState === "cprB_yes") {
@@ -773,6 +835,7 @@ function mousePressed() {
       mouseY < Yesy + Yesh
     ) {
       currentState = "cprC1";
+      cpr1t = millis();
       cprC1_aud.play();
     }else if (
       mouseX > Nox &&
@@ -799,7 +862,9 @@ function mousePressed() {
       mouseY < Noy + Noh
     ) {
       currentState = "win2";
+        cprB_yes_aud.stop();
       lastAud1.play();
+      // here stop aud 
       reset();
       
     }
@@ -889,20 +954,23 @@ function mousePressed() {
 }else if (currentState === "win2")
   {
      if (
-      mouseX > Yesx &&
-      mouseX < Yesx + Yesw &&
-      mouseY > Yesy &&
-      mouseY < Yesy + Yesh
+      mouseX > winyesx &&
+      mouseX < winyesx + winyesw &&
+      mouseY > winyesy &&
+      mouseY < winyesy + winyesh
     ) {
+       lastAud1.stop();
        lastAud2.play();
       currentState = "app";
     }else if (
-      mouseX > Nox &&
-      mouseX < Nox + Now &&
-      mouseY > Noy &&
-      mouseY < Noy + Noh
+      mouseX > winnox &&
+      mouseX < winnox + winnow &&
+      mouseY > winnoy &&
+      mouseY < winnoy + winnoh
     ) {
       currentState = "plus";
+      lastAud1.stop();
+      lastaud3.play();
     }
   }else if (currentState === "app")
   {
@@ -920,7 +988,19 @@ function mousePressed() {
       mouseY < appy + apph
     ) {
       window.open("https://apps.apple.com/sg/app/myresponder/id6478100813");
-    }
+    }else if ( 
+      mouseX > replayx &&
+      mouseX < replayx + replayw &&
+      mouseY > replayy &&
+      mouseY < replayy + replayh){
+      currentState = "cpr2";
+      lastAud1.stop();
+      lastAud2.stop();
+      lastaud3.stop();
+      aud1.play();
+      reset();
+      
+}
     }else if (currentState === "late")
   {
      if (
@@ -935,24 +1015,39 @@ function mousePressed() {
       win_music.play();
       reset();
     }
-  }else if (currentState === "end_next")
+  }else if (currentState === "plus"){
+   if ( 
+      mouseX > replayx &&
+      mouseX < replayx + replayw &&
+      mouseY > replayy &&
+      mouseY < replayy + replayh){
+      currentState = "cpr2";
+      lastAud1.stop();
+     lastaud3.stop();
+     aud1.play();
+      reset();
+      
+}         
+}
+  else if (currentState === "end_next")
   {
      if (
-      mouseX > Yesx &&
-      mouseX < Yesx + Yesw &&
-      mouseY > Yesy &&
-      mouseY < Yesy + Yesh
+      mouseX > winyesx &&
+      mouseX < winyesx + winyesw &&
+      mouseY > winyesy &&
+      mouseY < winyesy + winyesh
     ) {
        end_next_aud.stop();
        lastAud2.play();
       currentState = "app";
     }else if (
-      mouseX > Nox &&
-      mouseX < Nox + Now &&
-      mouseY > Noy &&
-      mouseY < Noy + Noh
+      mouseX > winnox &&
+      mouseX < winnox + winnow &&
+      mouseY > winnoy &&
+      mouseY < winnoy + winnoh
     ) {
       currentState = "plus";
+      lastaud3.play();
       end_next_aud.stop();
     }
   }else if (currentState === "aed")
@@ -1005,10 +1100,10 @@ function handle_performance(){
       if(diffGoal <= 5){
         currentState = "win";
         win_music.play();
-      }else if(diffGoal <= 10){
+      }else if(diffGoal <= 8){
         currentState = "aed";
         cprAed_found_aud.play();
-      }else if(diffGoal <= 18){
+      }else if(diffGoal <= 10){
         currentState = "amb";
         amb_aud.play();
       }else if (diffGoal >= 20){
@@ -1029,6 +1124,9 @@ function reset(){
   interval =0;
   respondTime = 0;
   breathingSeeTime= 0;
+  cpr1t = 0;
+  cpt1tpass = 0;
+  //cpr2t = 0;
 }
 function handle_live()
 {
